@@ -1,0 +1,24 @@
+{
+    "abi": "[{\"constant\":true,\"inputs\":[],\"name\":\"manager\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"enter\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"players\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]",
+    "bytecode": "608060405234801561001057600080fd5b5060008054600160a060020a0319163317905561019b806100326000396000f3006080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663481c6a75811461005b578063e97dcb6214610099578063f71d96cb146100a3575b600080fd5b34801561006757600080fd5b506100706100bb565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b6100a16100d7565b005b3480156100af57600080fd5b5061007060043561013a565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b662386f26fc1000034116100ea57600080fd5b6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf601805473ffffffffffffffffffffffffffffffffffffffff191633179055565b600180548290811061014857fe5b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff169050815600a165627a7a723058200c6890b68678c90f5f698411472fc8c0ec09105336e48984e44f9883f5dbd7d50029",
+    "functionHashes": {
+        "enter()": "e97dcb62",
+        "manager()": "481c6a75",
+        "players(uint256)": "f71d96cb"
+    },
+    "gasEstimates": {
+        "creation": [
+            20421,
+            82200
+        ],
+        "external": {
+            "enter()": 40609,
+            "manager()": 399,
+            "players(uint256)": 743
+        },
+        "internal": {
+            "random()": null
+        }
+    },
+    "runtimeBytecode": "6080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663481c6a75811461005b578063e97dcb6214610099578063f71d96cb146100a3575b600080fd5b34801561006757600080fd5b506100706100bb565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b6100a16100d7565b005b3480156100af57600080fd5b5061007060043561013a565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b662386f26fc1000034116100ea57600080fd5b6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf601805473ffffffffffffffffffffffffffffffffffffffff191633179055565b600180548290811061014857fe5b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff169050815600a165627a7a723058200c6890b68678c90f5f698411472fc8c0ec09105336e48984e44f9883f5dbd7d50029"
+}
