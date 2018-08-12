@@ -4,6 +4,7 @@ pragma solidity ^0.4.24;
 contract Lottery {
     address public manager;
     address[] public players;
+    address public lastWinner;
 
     modifier restricted() {
         require(msg.sender == manager, "Not enough rights");
@@ -22,6 +23,7 @@ contract Lottery {
     function pickWinner() public restricted {
         uint index = random() % players.length;
         players[index].transfer(address(this).balance);
+        lastWinner = players[index];
         players = new address[](0);
     }
 
