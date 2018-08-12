@@ -6,7 +6,7 @@ const {
 } = require("./compile");
 
 //FYI.. No real ether in these accounts.! :P
-const provider = new HDWalletprovider(
+const provider = new HDWalletProvider(
     "blue inherit drum enroll amused please camp false estate flash sell right",
     "https://rinkeby.infura.io/v3/dc22c9c6245742069d5fe663bfa8a698"
 );
@@ -18,13 +18,13 @@ const deploy = async () => {
 
     console.log("preparing to deploy from : ", accounts[0]);
 
-    const lottery = await web3.eth.Contract(JSON.parse(interface)).deploy({
+    const lottery = await new web3.eth.Contract(JSON.parse(interface)).deploy({
         data: "0x" + bytecode
     }).send({
         from: accounts[0],
-        gas: 1000000
+        gas: 2000000
     });
-
+    console.log(interface);
     console.log("Contract deployed at ", lottery.options.address);
 }
 
