@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+//@ts-check
 // const SearchBar = () => {
 //     return <input />; //JSX is converted to as React.createElement().. hence need to include React import
 // };
