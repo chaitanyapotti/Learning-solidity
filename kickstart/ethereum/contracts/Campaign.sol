@@ -49,11 +49,11 @@ contract Campaign {
     function createRequest(uint value, address recipient, string description) 
         public restricted {
         Request memory newRequest = Request({
-           description: description,
-           value: value,
-           recipient: recipient,
-           complete: false,
-           approvalCount: 0
+            description: description,
+            value: value,
+            recipient: recipient,
+            complete: false,
+            approvalCount: 0
         });
         
         requests.push(newRequest);

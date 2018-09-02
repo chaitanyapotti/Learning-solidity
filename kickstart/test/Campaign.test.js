@@ -6,21 +6,23 @@ const web3 = new Web3(ganache.provider());
 const compiledFactory = require("../ethereum/build/CampaignFactory.json");
 const compiledCampaign = require("../ethereum/build/Campaign.json");
 
-let acccounts;
+let accounts;
 let factory;
 let campaignAddress;
 let campaign;
 
 beforeEach(async () => {
-  acccounts = await web3.eth.getAccounts();
+  accounts = await web3.eth.getAccounts();
   factory = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
     .deploy({ data: "0x" + compiledFactory.bytecode })
     .send({
-      from: acccounts[0],
+      from: accounts[0],
       gas: "1000000"
     });
-
-  await factory.methods.createCampaign("100").send({ from: acccounts[0] });
+  console.log(factory.options.address);
+  await factory.methods
+    .createCampaign(100)
+    .send({ from: accounts[0], gas: "1000000" });
 
   [campaignAddress] = await factory.methods.getDeployedCampaigns().call();
 
@@ -37,8 +39,8 @@ describe("Campaigns", () => {
   });
 
   it("marks caller as campaign manager", async () => {
-    const manager = await campaign.methods.manager.call();
-    assert.equal(acccounts[0], manager);
+    const manager = await campaign.methods.manager().call();
+    assert.equal(accounts[0], manager);
   });
 
   it("allows people to contribute money and marks them as approvers", async () => {
@@ -53,7 +55,7 @@ describe("Campaigns", () => {
   it("requires a minimum contribution", async () => {
     try {
       await campaign.methods.contribute().send({
-        from: acccounts[1],
+        from: accounts[1],
         value: "99"
       });
       assert(false);
@@ -64,7 +66,7 @@ describe("Campaigns", () => {
 
   it("allows a manager to make a payment request", async () => {
     await campaign.methods
-      .createRequest("buy batteries", "100", acccounts[1])
+      .createRequest(100, accounts[1], "buy batteries")
       .send({
         from: accounts[0],
         gas: "1000000"
@@ -81,7 +83,7 @@ describe("Campaigns", () => {
     });
 
     await campaign.methods
-      .createRequest("A", web3.utils.toWei("5", "ether"), accounts[1])
+      .createRequest(web3.utils.toWei("5", "ether"), accounts[1], "A")
       .send({
         from: accounts[0],
         gas: "1000000"
