@@ -1,6 +1,6 @@
-import assert from "assert";
-import ganache from "ganache-cli";
-import Web3 from "web3";
+const assert = require("assert");
+const ganache = require("ganache-cli");
+const Web3 = require("web3");
 
 const web3 = new Web3(ganache.provider());
 const compiledFactory = require("../ethereum/build/CampaignFactory.json");
@@ -24,11 +24,14 @@ beforeEach(async () => {
 
   [campaignAddress] = await factory.methods.getDeployedCampaigns().call();
 
-  campaign = await new web3.eth.Contract(JSON.parse(compiledCampaign.interface), campaignAddress);
+  campaign = await new web3.eth.Contract(
+    JSON.parse(compiledCampaign.interface),
+    campaignAddress
+  );
 });
 
 describe("Campaigns", () => {
-  it('deploys a factory and a campaign', () => {
+  it("deploys a factory and a campaign", () => {
     assert.ok(factory.options.address);
     assert.ok(campaign.options.address);
   });
@@ -38,9 +41,10 @@ describe("Campaigns", () => {
     assert.equal(acccounts[0], manager);
   });
 
-  it("allows people to contribute money and marks them as approvers" async () => {
+  it("allows people to contribute money and marks them as approvers", async () => {
     await campaign.methods.contribute().send({
-      from: accounts[1], value: "200"
+      from: accounts[1],
+      value: "200"
     });
     const isApprover = await campaign.methods.approvers(accounts[1]).call();
     assert(isApprover);
@@ -49,7 +53,8 @@ describe("Campaigns", () => {
   it("requires a minimum contribution", async () => {
     try {
       await campaign.methods.contribute().send({
-        from: acccounts[1], value: "99"
+        from: acccounts[1],
+        value: "99"
       });
       assert(false);
     } catch (error) {
@@ -58,9 +63,12 @@ describe("Campaigns", () => {
   });
 
   it("allows a manager to make a payment request", async () => {
-    await campaign.methods.createRequest("buy batteries", "100", acccounts[1]).send({
-      from: accounts[0], gas: "1000000"
-    });
+    await campaign.methods
+      .createRequest("buy batteries", "100", acccounts[1])
+      .send({
+        from: accounts[0],
+        gas: "1000000"
+      });
 
     const request = await campaign.methods.requests(0).call();
     assert.equal("buy batteries", request.description);
@@ -68,19 +76,25 @@ describe("Campaigns", () => {
 
   it("process requests", async () => {
     await campaign.methods.contribute().send({
-      from: accounts[0], value: web3.utils.toWei("10", "ether")
+      from: accounts[0],
+      value: web3.utils.toWei("10", "ether")
     });
 
-    await campaign.methods.createRequest("A",web3.utils.toWei("5", "ether"), accounts[1]).send({
-      from: accounts[0], gas: "1000000"
-    });
+    await campaign.methods
+      .createRequest("A", web3.utils.toWei("5", "ether"), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: "1000000"
+      });
 
     await campaign.methods.approveRequest(0).send({
-      from: accounts[0], gas: "1000000"
+      from: accounts[0],
+      gas: "1000000"
     });
 
     await campaign.methods.finalizeRequest(0).send({
-      from: accounts[0], gas: "1000000"
+      from: accounts[0],
+      gas: "1000000"
     });
 
     let balance = await web3.eth.getBalance(accounts[1]);
@@ -89,5 +103,4 @@ describe("Campaigns", () => {
 
     assert(balance > 104);
   });
-
-})
+});
