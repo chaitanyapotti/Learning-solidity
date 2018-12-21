@@ -8,24 +8,20 @@ import React, { Component } from "react";
 
 //to manage state in a class, we need class components and not functional components
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { term: "" };
-  }
+  state = { term: "" };
 
   render() {
     return (
       <div className="search-bar">
-        <input onChange={event => this.onInputChange(event.target.value)} />
+        <input onChange={this.onInputChange} />
       </div>
     );
   }
 
-  onInputChange(term) {
-    this.setState({ term: term });
-    this.props.onSearchTermChange(term);
-  }
+  onInputChange = e => {
+    this.setState({ term: e.target.value });
+    this.props.onSearchTermChange(e.target.value);
+  };
 }
 
 export default SearchBar;
