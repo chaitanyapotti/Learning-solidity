@@ -1,0 +1,4 @@
+export default {
+  FETCH_WEATHER: "FETCH_WEATHER",
+  TERM_CHANGED: "TERM_CHANGED"
+};
