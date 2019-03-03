@@ -110,7 +110,7 @@ var _jsxFileName = "C:\\Users\\Naina\\source\\repos\\Learning-solidity\\kickstar
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 5
+      lineNumber: 4
     },
     __self: this
   }, "This is the new campaign page!");
@@ -125,7 +125,7 @@ var _jsxFileName = "C:\\Users\\Naina\\source\\repos\\Learning-solidity\\kickstar
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./pages/newcampaign.js */"./pages/newcampaign.js");
+module.exports = __webpack_require__(/*! C:\Users\Naina\source\repos\Learning-solidity\kickstart\pages\newcampaign.js */"./pages/newcampaign.js");
 
 
 /***/ }),
