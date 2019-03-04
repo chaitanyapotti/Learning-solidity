@@ -30,7 +30,7 @@ contract Campaign {
     address public manager;
     uint public minimumContribution;
     mapping(address => bool) public approvers;
-    uint public approversCount ;
+    uint public approversCount;
     
     modifier restricted() {
         require(msg.sender == manager, "Not enough rights");
@@ -50,16 +50,16 @@ contract Campaign {
     
     function createRequest(uint value, address recipient, string description) 
         public restricted {
-        Request memory newRequest = Request({
-            description: description,
-            value: value,
-            recipient: recipient,
-            complete: false,
-            approvalCount: 0
-        });
-        
-        requests.push(newRequest);
-    }
+            Request memory newRequest = Request({
+                description: description,
+                value: value,
+                recipient: recipient,
+                complete: false,
+                approvalCount: 0
+            });
+            
+            requests.push(newRequest);
+        }
     
     function approveRequest(uint requestId) public {
         Request storage request = requests[requestId];
@@ -75,5 +75,19 @@ contract Campaign {
         require(request.approvalCount > approversCount/2, "Min Quorum Not Reached");
         request.complete = true;
         request.recipient.transfer(request.value);
+    }
+
+    function getSummary() public view returns (uint, uint, uint, uint, address) {
+        return (
+            minimumContribution,
+            address(this).balance,
+            requests.length,
+            approversCount,
+            manager
+        );
+    }
+
+    function getRequestsCount() public view returns (uint) {
+        return requests.length;
     }
 }

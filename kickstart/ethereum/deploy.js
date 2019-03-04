@@ -18,7 +18,7 @@ const deploy = async web3 => {
       })
       .send({
         from: accounts[0],
-        gas: 2000000
+        gas: 4000000
       })
       .catch(err => console.log(err));
     console.log("Contract deployed at ", campaignFactory.options.address);
