@@ -4,7 +4,7 @@ const compiledFactory = require("./build/CampaignFactory.json");
 // FYI.. No real ether in these accounts.! :P
 const provider = new HDWalletProvider(
   "blue inherit drum enroll amused please camp false estate flash sell right",
-  "https://rinkeby.infura.io/v3/dc22c9c6245742069d5fe663bfa8a698"
+  "https://rinkeby.infura.io/dc22c9c6245742069d5fe663bfa8a698"
 );
 
 const deploy = async web3 => {

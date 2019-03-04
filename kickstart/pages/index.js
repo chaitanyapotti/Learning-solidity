@@ -1,11 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
+import { Card, Button, Grid } from "semantic-ui-react";
+import factory from "../ethereum/factory";
+// import "semantic-ui-css/semantic.min.css";
+import Layout from "../components/Layout";
 
-import web3 from "../ethereum/web3";
+class CampaignIndex extends Component {
+  static async getInitialProps() {
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
+    return { campaigns };
+  }
 
-web3.eth.getAccounts().then(accounts => {
-  console.log(accounts);
-});
+  renderCampaigns() {
+    const { campaigns } = this.props || {};
+    const items = campaigns.map(address => {
+      return {
+        header: address,
+        description: <a>View Campaign</a>,
+        fluid: true
+      };
+    });
+    return <Card.Group items={items} />;
+  }
 
-export default () => {
-  return <h1>This is the campaign list page!!!</h1>;
-};
+  render() {
+    return (
+      <Layout>
+        <h3>Open Campaigns</h3>
+        <Button floated="right" content="Create Campaign" icon="add circle" primary />
+
+        {this.renderCampaigns()}
+      </Layout>
+    );
+  }
+}
+
+export default CampaignIndex;
