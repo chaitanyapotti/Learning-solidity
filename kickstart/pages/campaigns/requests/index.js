@@ -22,7 +22,6 @@ class RequestIndex extends Component {
 
   renderRows() {
     const { requests, address, approversCount } = this.props || {};
-    console.log(requests);
     return requests.map((request, index) => {
       // eslint-disable-next-line react/no-array-index-key
       return <RequestRow key={index} id={index} request={request} address={address} approversCount={approversCount} />;
