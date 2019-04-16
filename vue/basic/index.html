@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+  <script src="vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1 v-once>{{ title }}</h1>
+    <p>
+      <input type="text" @input="changeTitle" />
+      <input type="text" v-model="title" />
+      {{ title }} - <a :href="link">Google</a>
+    </p>
+    <hr />
+    <p v-html="finishedLink"></p>
+    <hr />
+    <button @click="increase(2, $event)">Click me</button>
+    <button @click="counter++">Click me</button>
+    <p>{{ counter }}</p>
+    <p>- {{ counterResult }}</p>
+    <p @mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span @mousemove.stop="">DEAD SPOT</span></p>
+    <input type="text" @keyup.enter.space="alertMe" />
+  </div>
+</body>
+
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      title: "Hello World!",
+      link: "https://google.com",
+      finishedLink: '<a href="https://google.com">Google</a>',
+      counter: 0,
+      x: 0,
+      y: 0
+    },
+    computed: {
+      counterResult: function() {
+        return this.counter * 2 > 10 ? " Greater than 10" : " Smaller than 10";
+      }
+    },
+    watch: {
+      counter: function(value) {
+        setTimeout(() => {
+          this.counter = 0;
+        }, 2000);
+      }
+    },
+    methods: {
+      changeTitle: function(event) {
+        this.title = event.target.value;
+      },
+      increase: function(step, event) {
+        this.counter += step;
+      },
+      updateCoordinates: function(event) {
+        this.x = event.clientX;
+        this.y = event.clientY;
+      },
+      alertMe: function() {
+        alert("Alert!");
+      }
+      //   dummy: function(event) {
+      //     event.stopPropagation();
+      //   }
+    }
+  });
+
+  // Directives are
+  // v-bind or :
+  // v-on or @
+  // v-once - to stop re-rendering after initial
+  // v-html - to render html content directly
+  // v-model - to use two-way binding
+
+  // can chain .stop.prevent as well which are event modifiers - which do .stopPropogation() and .preventDefault() respectively
+  // can chain .enter.space as well which are key modifiers - which do execute the event only when the modifier conditions are met
+
+  // Use computed properties to react to changes and cache the result - no re-render whenever others change - re-render only when used props change
+  // if you want to re execute everytime the dom gets updated, use method syntax `result()`. else, use computed `result`
+
+  // computed props are sync
+  // watch is async
+</script>
