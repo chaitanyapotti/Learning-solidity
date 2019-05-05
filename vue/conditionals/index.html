@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p v-if="show">You can see me</p>
+    <p v-else>You can also see me</p>
+    <template v-if="show">
+      <h1>Heading</h1>
+      <p>Inside a template</p>
+    </template>
+    <p v-show="show">Do you also see me?</p>
+    <button @click="show = !show">switch</button>
+  </div>
+</body>
+
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      show: true
+    }
+  });
+</script>
+
+<style></style>
