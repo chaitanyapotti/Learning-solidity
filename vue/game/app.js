@@ -9,14 +9,11 @@ new Vue({
   watch: {
     playerHealth: {
       handler: function(newVal, oldVal) {
-        console.log(newVal, oldVal, "log");
-        if (newVal && oldVal)
-          this.turns.unshift({
-            isPlayer: oldVal - newVal <= 0,
-            text: oldVal - newVal > 0 ? "Monster hits player for " + (oldVal - newVal) : "Player heals for " + (newVal - oldVal)
-          });
-      },
-      immediate: true
+        this.turns.unshift({
+          isPlayer: oldVal - newVal <= 0,
+          text: oldVal - newVal > 0 ? "Monster hits player for " + (oldVal - newVal) : "Player heals for " + (newVal - oldVal)
+        });
+      }
     },
     monsterHealth: function(newVal, oldVal) {
       this.turns.unshift({
