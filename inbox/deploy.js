@@ -16,17 +16,25 @@ const web3 = new Web3(provider);
 const deploy = async () => {
     const accounts = await web3.eth.getAccounts();
     console.log("Attempting to deploy from account ", accounts[0]);
-
-    const result = await new web3.eth.Contract(JSON.parse(interface)).deploy({
-        data: "0x" + bytecode,
-        arguments: ['Hello World!']
-    }).send({
-        gas: 4000000,
-        from: accounts[0]
-    });
+    try {
+        const result = await new web3.eth.Contract(JSON.parse(interface)).deploy({
+            data: "0x" + bytecode,
+            arguments: ['Hello World!']
+        }).send({
+            gas: 4000000,
+            from: accounts[0]
+        });    
+    } catch (error) {
+        console.log(error)
+    }
+    
 
     console.log("contract deployed at ", result.options.address);
 
 };
 
-deploy();
+try {
+    deploy();    
+} catch (error) {
+    console.log(error)
+}
